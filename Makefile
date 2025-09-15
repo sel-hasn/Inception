@@ -1,13 +1,16 @@
-.PHONY: all build up down
+.PHONY: build up down
 
-all:
-	cd ./srcs && docker compose up --build -d
+DATA_DIRS = srcs/data/wordpress srcs/data/mariadb
 
-build:
-	cd ./srcs && docker compose build
+# Ensure data directories exist
+$(DATA_DIRS):
+	mkdir -p $@
 
-up:
-	cd ./srcs && docker compose up -d
+build: $(DATA_DIRS)
+	cd srcs && docker compose build
+
+up: $(DATA_DIRS)
+	cd srcs && docker compose up -d
 
 down:
-	cd ./srcs && docker compose down
+	cd srcs && docker compose down

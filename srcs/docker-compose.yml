@@ -1,115 +1,113 @@
+
 services:
+  mariadb:
+    build: ./requirements/mariadb/
+    container_name: mariadb
+    restart: always
+    env_file: .env
+    volumes:
+      - mariadb_volume:/var/lib/mysql
+    networks:
+      - inception
 
-    mariadb:
-      build: ./requirements/mariadb/
-      container_name: mariadb
-      restart: always
-      env_file: .env
-      volumes:
-        - mariadb_volume:/var/lib/mysql
-      networks:
-        - inception
+  wordpress:
+    build: ./requirements/wordpress/
+    container_name: wordpress
+    restart: always
+    env_file: .env
+    volumes:
+      - wordpress_volume:/var/www/html
+    depends_on:
+      - mariadb
+    networks:
+      - inception
 
-    wordpress:
-      build: ./requirements/wordpress/
-      container_name: wordpress
-      restart : always
-      env_file: .env
-      volumes:
-        - wordpress_volume:/var/www/html
-      depends_on :
-        - mariadb
-      networks:
-        - inception
+  nginx:
+    build: ./requirements/nginx/
+    container_name: nginx
+    restart: always
+    env_file: .env
+    volumes:
+      - wordpress_volume:/var/www/html
+    depends_on:
+      - wordpress
+    ports:
+      - "8443:443"
+    networks:
+      - inception
 
-    nginx:
-      build: ./requirements/nginx/
-      container_name : nginx
-      restart: always
-      env_file: .env
-      volumes:
-        - wordpress_volume:/var/www/html
-      depends_on :
-        - wordpress
-      networks :
-        - inception
-      ports:
-        - "443:443"
-      
-    redis:
-      build: ./requirements/bonus/redis/
-      container_name: redis
-      restart: always
-      env_file: .env
-      depends_on:
-        - wordpress
-      networks:
-        - inception
+  redis:
+    build: ./requirements/bouns/redis/
+    container_name: redis
+    restart: always
+    env_file: .env
+    depends_on:
+      - wordpress
+    networks:
+      - inception
 
-    website:
-      build: ./requirements/bonus/website/
-      container_name: website
-      restart: always
-      networks:
-        - inception
-      ports:
-        - "4444:4444"
+  website:
+    build: ./requirements/bouns/website/
+    container_name: website
+    restart: always
+    ports:
+      - "4444:4444"
+    networks:
+      - inception
 
-    adminer:
-      build: ./requirements/bonus/adminer/
-      container_name: adminer
-      restart: always
-      depends_on:
-        - mariadb
-      networks:
-        - inception
-      ports:
-        - "8888:8080"
+  adminer:
+    build: ./requirements/bouns/adminer/
+    container_name: adminer
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - "8888:8080"
+    networks:
+      - inception
 
-    cadvisor:
-      build: ./requirements/bonus/cadvisor/
-      container_name: cadvisor
-      restart: always
-      networks:
-        - inception
-      ports:
-        - "7777:8080"
-      volumes:
-        - /:/rootfs:ro
-        - /var/run:/var/run:ro
-        - /sys:/sys:ro
-        - /var/lib/docker/:/var/lib/docker:ro
+  cadvisor:
+    build: ./requirements/bouns/cadvisor/
+    container_name: cadvisor
+    restart: always
+    ports:
+      - "7777:8080"
+    networks:
+      - inception
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
 
-    ftp:
-      build: ./requirements/bonus/ftp/
-      container_name: ftp
-      restart: always
-      networks:
-        - inception
-      env_file: .env
-      ports:
-        - "21:21"
-        - "30000-30009:30000-30009"
-      volumes:
-        - wordpress_volume:/var/www/html
+  ftp:
+    build: ./requirements/bouns/ftp/
+    container_name: ftp
+    restart: always
+    env_file: .env
+    ports:
+      - "2121:21"
+      - "30000-30009:30000-30009"
+    volumes:
+      - wordpress_volume:/var/www/html
+    networks:
+      - inception
 
 volumes:
-
   wordpress_volume:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/salah-eddin/data/wordpress
+      device: ./data/wordpress
   
   mariadb_volume:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/salah-eddin/data/mariadb  
-  
+      device: ./data/mariadb
+
 networks:
   inception:
-    name: "inception"
     driver: bridge
