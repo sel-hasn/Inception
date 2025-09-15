@@ -90,8 +90,6 @@ Entrypoint script for WordPress: installs WP-CLI, waits for DB, sets up WordPres
 
 ---
 
-For a full letter-by-letter breakdown of each file, see the comments inside each file or request a specific file explanation.
-
 ## Getting Started
 
 To build and run the project:
