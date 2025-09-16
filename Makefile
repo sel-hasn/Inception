@@ -1,8 +1,7 @@
 .PHONY: build up down
 
-DATA_DIRS = srcs/data/wordpress srcs/data/mariadb
+DATA_DIRS = /home/sel-hasn/data/wordpress /home/sel-hasn/data/mariadb
 
-# Ensure data directories exist
 $(DATA_DIRS):
 	mkdir -p $@
 
