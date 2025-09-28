@@ -11,4 +11,3 @@ RUN apt-get update && apt-get install -y mariadb-server && \
 EXPOSE 3306
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-

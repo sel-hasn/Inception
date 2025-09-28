@@ -1,24 +1,29 @@
 #!/bin/bash
 set -e
 
-# Fix permissions in case they were changed by volume mounts
-chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
+# Start MariaDB service
+service mariadb start
 
-# Start MariaDB temporarily for setup as mysql user
-su -s /bin/bash mysql -c "mysqld --skip-networking --socket=/var/run/mysqld/mysqld.sock &"
+# Wait for MariaDB to be ready
+sleep 5
 
-# Wait until ready
-until mariadb -u root -e "SELECT 1;" &>/dev/null; do sleep 1; done
+# Set root password
+mysqladmin -u root password "$MYSQL_ROOT_PASSWORD"
 
-# Setup database and user
-mariadb -u root -e "
-CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;
-CREATE USER IF NOT EXISTS '${MYSQL_USERNAME}'@'%' IDENTIFIED BY '${MYSQL_USERPASS}';
-GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USERNAME}'@'%';
-FLUSH PRIVILEGES;"
+# Create database
+mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\`;"
 
-# Stop temporary server
-mysqladmin shutdown -u root
+# Create user
+mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "CREATE USER IF NOT EXISTS \`$MYSQL_USERNAME\`@'%' IDENTIFIED BY '$MYSQL_USERPASS';"
 
-# Start real server as mysql user
-exec su -s /bin/bash mysql -c "mysqld --bind-address=0.0.0.0 --port=3306"
+# Grant privileges (fix: use $MYSQL_USERNAME, not hardcoded 'mhimi')
+mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO \`$MYSQL_USERNAME\`@'%';"
+
+# Flush privileges
+mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
+
+# Stop service
+service mariadb stop
+
+# Start daemon
+exec mysqld_safe --bind-address=0.0.0.0

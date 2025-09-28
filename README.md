@@ -42,17 +42,17 @@ Below is a comprehensive explanation of every file in the project, with each com
 # Database Configuration
 MYSQL_DATABASE=wordpress         # Name of the MariaDB database for WordPress
 MYSQL_USERNAME=wpuser            # Username for WordPress to access MariaDB
-MYSQL_USERPASS=************        # Password for the WordPress database user
-MYSQL_ROOT_PASSWORD=************ # Root password for MariaDB (not always used)
+MYSQL_USERPASS=wppassword        # Password for the WordPress database user
+MYSQL_ROOT_PASSWORD=rootpassword # Root password for MariaDB (not always used)
 
 # WordPress Configuration
 DOMAIN_NAME=sel-hasn.42.fr       # The domain name for your WordPress site
 WP_TITLE=My WordPress Site       # The title of your WordPress site
 WP_ROOTNAME=admin                # Username for the WordPress admin account
-WP_ROOTPASS=************        # Password for the WordPress admin account
+WP_ROOTPASS=adminpassword        # Password for the WordPress admin account
 WP_ROOTEMAIL=admin@sel-hasn.42.fr# Email for the WordPress admin account
 WP_USERNAME=editor               # Username for a secondary WordPress user
-WP_USERPASS=************       # Password for the secondary WordPress user
+WP_USERPASS=editorpassword       # Password for the secondary WordPress user
 WP_USEREMAIL=editor@sel-hasn.42.fr# Email for the secondary WordPress user
 WP_USERROLE=editor               # Role for the secondary WordPress user (e.g., editor)
 
@@ -62,7 +62,7 @@ REDIS_PORT=6379                  # Port for the Redis service
 
 # FTP Configuration
 FTP_USER=ftpuser                 # Username for FTP access
-FTP_PASS=************             # Password for FTP access
+FTP_PASS=ftppassword             # Password for FTP access
 ```
 
 ### docker-compose.yml

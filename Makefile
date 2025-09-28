@@ -9,7 +9,7 @@ build: $(DATA_DIRS)
 	cd srcs && docker compose build
 
 up: $(DATA_DIRS)
-	cd srcs && docker compose up -d
+	cd srcs && docker compose up --build -d
 
 down:
 	cd srcs && docker compose down

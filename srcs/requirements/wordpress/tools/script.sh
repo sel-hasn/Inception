@@ -13,6 +13,7 @@ chown -R www-data:www-data .
 until mysqladmin ping -h mariadb -u"$MYSQL_USERNAME" -p"$MYSQL_USERPASS" --silent; do sleep 2; done
 
 # ---- Core / Config ----
+
 [ -f wp-includes/version.php ] || wp core download --allow-root
 [ -f wp-config.php ] || wp config create \
     --dbname="$MYSQL_DATABASE" --dbuser="$MYSQL_USERNAME" \
