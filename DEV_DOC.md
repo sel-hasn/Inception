@@ -46,15 +46,15 @@ The repository expects the following variable names (same as `srcs/.env`):
 - **FTP** (bonus): `FTP_USER`, `FTP_PASS`
 
 ### Hostname resolution (`/etc/hosts`)
-The domain is configured by `DOMAIN_NAME` in `srcs/.env` (example: `sel-hasn.42.fr`).
+The domain is configured by `DOMAIN_NAME` in `srcs/.env` (example: `<login>.42.fr`).
 For local testing/evaluation, map it to localhost:
 
-- `127.0.0.1 sel-hasn.42.fr`
+- `127.0.0.1 <login>.42.fr`
 
 Append the line to your hosts file (works on Ubuntu and macOS):
 
 ```bash
-echo "127.0.0.1 sel-hasn.42.fr" | sudo tee -a /etc/hosts > /dev/null
+echo "127.0.0.1 <login>.42.fr" | sudo tee -a /etc/hosts > /dev/null
 ```
 
 If you use additional hostnames/subdomains in your NGINX config for bonus services, add them as well.
