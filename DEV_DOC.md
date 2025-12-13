@@ -46,18 +46,31 @@ The repository expects the following variable names (same as `srcs/.env`):
 - **FTP** (bonus): `FTP_USER`, `FTP_PASS`
 
 ### Hostname resolution (`/etc/hosts`)
-The domain is configured by `DOMAIN_NAME` in `srcs/.env` (example: `<login>.42.fr`).
+For local testing/evaluation on your own machine, you can use your local username (`$USER`) to build the domain.
+This avoids requiring any extra env setup.
+
+The convention used here is:
+- main domain: `$USER.42.fr`
+- bonus subdomains: `adminer.$USER.42.fr`, `website.$USER.42.fr`, `cadvisor.$USER.42.fr`
 For local testing/evaluation, map it to localhost:
 
-- `127.0.0.1 <login>.42.fr`
+Add these entries (to match the vhosts configured in NGINX):
 
-Append the line to your hosts file (works on Ubuntu and macOS):
+- `127.0.0.1 $USER.42.fr`
+- `127.0.0.1 adminer.$USER.42.fr`
+- `127.0.0.1 website.$USER.42.fr`
+- `127.0.0.1 cadvisor.$USER.42.fr`
+
+Append them to your hosts file (works on Ubuntu and macOS):
 
 ```bash
-echo "127.0.0.1 <login>.42.fr" | sudo tee -a /etc/hosts > /dev/null
+sudo tee -a /etc/hosts > /dev/null <<EOF
+127.0.0.1 $USER.42.fr
+127.0.0.1 adminer.$USER.42.fr
+127.0.0.1 website.$USER.42.fr
+127.0.0.1 cadvisor.$USER.42.fr
+EOF
 ```
-
-If you use additional hostnames/subdomains in your NGINX config for bonus services, add them as well.
 
 ## 2) Build and launch
 
@@ -95,10 +108,3 @@ Data remains even after `docker compose down`.
 
 To remove persisted data and start fresh (⚠️ deletes database + WordPress files):
 - `make fclean`
-
-## 5) Evaluation talking points
-Be ready to explain:
-- how Docker and Docker Compose work together (Compose orchestrates multiple services/containers)
-- the difference between using an image alone vs via Compose (networks, volumes, dependencies)
-- why Docker is beneficial compared to VMs (lighter isolation, faster startup)
-- why the directory structure is pertinent (`srcs/docker-compose.yml` + per-service Dockerfiles in `srcs/requirements/`)
