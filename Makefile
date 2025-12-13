@@ -1,15 +1,25 @@
-.PHONY: build up down
+all: up
 
-DATA_DIRS = /home/sel-hasn/data/wordpress /home/sel-hasn/data/mariadb
+up:
+	sudo mkdir -p /home/${USER}/data/mariadb
+	sudo mkdir -p /home/${USER}/data/wordpress
+	cd srcs && docker compose up -d
 
-$(DATA_DIRS):
-	mkdir -p $@
-
-build: $(DATA_DIRS)
-	cd srcs && docker compose build
-
-up: $(DATA_DIRS)
+build:
 	cd srcs && docker compose up --build -d
 
 down:
 	cd srcs && docker compose down
+
+clean:
+	cd srcs && docker compose down
+	docker system prune -af
+
+fclean: clean
+	cd srcs && docker compose down --volumes --remove-orphans
+	docker system prune --volumes -af
+	sudo rm -fr /home/${USER}/data
+
+re: fclean all
+
+.PHONY: up down clean fclean re build

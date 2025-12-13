@@ -8,7 +8,7 @@ services:
       - mariadb:/var/lib/mysql
     networks:
       - inception
-    image: mariadb
+    image: mariadb:42
 
   wordpress:
     build: ./requirements/wordpress/
@@ -21,7 +21,7 @@ services:
       - mariadb
     networks:
       - inception
-    image: wordpress
+    image: wordpress:42
 
   nginx:
     build: ./requirements/nginx/
@@ -36,7 +36,7 @@ services:
       - "8443:443"
     networks:
       - inception
-    image: nginx
+    image: nginx:42
 
   redis:
     build: ./requirements/bouns/redis/
@@ -47,7 +47,7 @@ services:
       - wordpress
     networks:
       - inception
-    image: redis
+    image: redis:42
 
   website:
     build: ./requirements/bouns/website/
@@ -57,7 +57,7 @@ services:
       - "4444:4444"
     networks:
       - inception
-    image: website
+    image: website:42
 
   adminer:
     build: ./requirements/bouns/adminer/
@@ -69,7 +69,7 @@ services:
       - "8888:8080"
     networks:
       - inception
-    image: adminer
+    image: adminer:42
 
   cadvisor:
     build: ./requirements/bouns/cadvisor/
@@ -84,7 +84,7 @@ services:
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-    image: cadvisor
+    image: cadvisor:42
 
   ftp:
     build: ./requirements/bouns/ftp/
@@ -98,7 +98,7 @@ services:
       - wordpress:/var/www/html
     networks:
       - inception
-    image: ftp
+    image: ftp:42
 
 volumes:
   wordpress:
@@ -119,5 +119,3 @@ volumes:
 
 networks:
   inception:
-    driver: bridge
-    name : inception
