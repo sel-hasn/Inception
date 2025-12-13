@@ -22,8 +22,8 @@ The infrastructure includes:
     - `make` installed.
 
 2.  **Configuration:**
-    - Create your `.env` in `srcs/.env` (see `DEV_DOC.md` for the template).
-    - Add the project domain to your hosts file (see `DEV_DOC.md`).
+    - Create your `.env` in `srcs/.env` (template and variables are documented in `DEV_DOC.md`).
+    - Add the project domain to your hosts file (documented in `DEV_DOC.md`).
 
 3.  **Execution:**
     Build and start the stack:
@@ -37,7 +37,51 @@ The infrastructure includes:
     make fclean
     ```
 
+## Resources
+
+### Docker (Official Docs)
+* [Docker Engine](https://docs.docker.com/engine/)
+* [Docker Compose](https://docs.docker.com/compose/)
+* [Docker overview](https://docs.docker.com/get-started/overview/)
+* [Docker Networking](https://docs.docker.com/network/)
+* [Docker Volumes](https://docs.docker.com/storage/volumes/)
+* [Container Images](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/)
+* [What is a container?](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/)
+* [Docker CLI reference](https://docs.docker.com/engine/reference/commandline/cli/)
+
+### Services & Tools
+* [NGINX Documentation](https://nginx.org/en/docs/)
+* [WordPress](https://wordpress.org/support/)
+* [MariaDB Documentation](https://mariadb.com/docs/)
+* [Redis Documentation](https://redis.io/docs/latest/)
+* [vsftpd (Debian wiki)](https://wiki.debian.org/vsftpd)
+* [Adminer](https://www.adminer.org/)
+* [cAdvisor](https://github.com/google/cadvisor)
+* [WP-CLI](https://wp-cli.org/)
+
+### Guides & Handbooks
+* [PHP-FPM (PHP Manual)](https://www.php.net/manual/en/install.fpm.php)
+* [The NGINX Handbook (FreeCodeCamp)](https://www.freecodecamp.org/news/the-nginx-handbook)
+
+### AI Usage Declaration
+Artificial Intelligence tools were used as development assistance for specific, non-graded tasks.
+* **Documentation drafting:** AI helped rephrase and structure `README.md`, `USER_DOC.md`, and `DEV_DOC.md` so the documentation matches the 42 subject expectations (notably Chapters VI and VII).
+* **Debugging assistance:** AI helped troubleshoot container connectivity/port publishing and NGINX configuration issues (TLS settings, redirects, and upstream routing).
+* **Script improvement:** AI assisted in reviewing and optimizing initialization scripts (WordPress/MariaDB/FTP) to make startup order, retries, and idempotent setup more reliable.
+* **Research support:** AI was used to quickly locate relevant official documentation pages (networking, volumes, images, CLI) and common pitfalls for Compose-based multi-service setups.
+* **Command/checklist generation:** AI helped propose repeatable test commands (logs, health checks, curl/ftp verification) to validate each service during development.
+
 ## Project Description & Design Choices
+
+### Why Docker / Docker Compose in this project?
+The goal of **Inception** is to build a reproducible multi-service environment where each service runs in its own isolated container (NGINX, WordPress/PHP-FPM, MariaDB, etc.). **Docker Compose** is used to define and run the whole stack (networks, volumes, and service dependencies) from a single configuration.
+
+### Where are the project sources?
+The stack is defined and implemented in the `srcs/` folder:
+* `srcs/docker-compose.yml`: the Compose file wiring all services together.
+* `srcs/requirements/`: Dockerfiles and configuration/scripts for each service.
+    * Mandatory: `srcs/requirements/nginx/`, `srcs/requirements/wordpress/`, `srcs/requirements/mariadb/`
+    * Bonus (if enabled in your compose): `srcs/requirements/bouns/` (adminer, redis, ftp, cadvisor, website)
 
 ### Virtual Machines vs Docker
 - **Virtual Machines (VMs)** emulate a full machine. They typically boot a complete OS (including its own kernel), which increases startup time and resource usage.
@@ -58,33 +102,3 @@ The infrastructure includes:
 - **Docker Volumes:** Docker-managed persistent storage, independent of a specific host path.
 - **Bind Mounts:** A direct mapping between a host directory and a container path.
 * **Choice:** To match the subject’s persistence requirement, this project uses bind mounts under `/home/${USER}/data`.
-
-## Resources
-
-### Docker (Official Docs)
-* [Docker Engine](https://docs.docker.com/engine/)
-* [Docker Compose](https://docs.docker.com/compose/)
-* [Docker Networking](https://docs.docker.com/network/)
-* [Docker Volumes](https://docs.docker.com/storage/volumes/)
-* [Container Images (concepts)](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/)
-* [Docker CLI reference](https://docs.docker.com/engine/reference/commandline/cli/)
-* [Docker image command reference](https://docs.docker.com/reference/cli/docker/image/)
-
-### Services & Tools
-* [NGINX Documentation](https://nginx.org/en/docs/)
-* [WordPress](https://wordpress.org/support/)
-* [PHP-FPM (PHP Manual)](https://www.php.net/manual/en/install.fpm.php)
-* [MariaDB Documentation](https://mariadb.com/docs/)
-* [Redis Documentation](https://redis.io/docs/latest/)
-* [vsftpd (Debian wiki)](https://wiki.debian.org/vsftpd)
-* [Adminer](https://www.adminer.org/)
-* [cAdvisor](https://github.com/google/cadvisor)
-* [WP-CLI](https://wp-cli.org/)
-
-### AI Usage Declaration
-Artificial Intelligence tools were used as development assistance for specific, non-graded tasks.
-* **Documentation drafting:** AI helped rephrase and structure `README.md`, `USER_DOC.md`, and `DEV_DOC.md` so the documentation matches the 42 subject expectations (notably Chapters VI and VII).
-* **Debugging assistance:** AI helped troubleshoot container connectivity/port publishing and NGINX configuration issues (TLS settings, redirects, and upstream routing).
-* **Script improvement:** AI assisted in reviewing and optimizing initialization scripts (WordPress/MariaDB/FTP) to make startup order, retries, and idempotent setup more reliable.
-* **Research support:** AI was used to quickly locate relevant official documentation pages (networking, volumes, images, CLI) and common pitfalls for Compose-based multi-service setups.
-* **Command/checklist generation:** AI helped propose repeatable test commands (logs, health checks, curl/ftp verification) to validate each service during development.
