@@ -2,8 +2,10 @@
 
 set -e
 
-# Only add user if not present
-id "$FTP_USER" &>/dev/null || useradd -m -d /var/www/html -s /bin/bash "$FTP_USER"
+id "$FTP_USER" &>/dev/null || useradd -m -d /var/www/html "$FTP_USER"
 echo "$FTP_USER:$FTP_PASS" | chpasswd
+
+usermod -a -G www-data "$FTP_USER"
+chmod -R g+w /var/www/html
 
 exec vsftpd /etc/vsftpd.conf

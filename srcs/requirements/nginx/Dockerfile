@@ -1,18 +1,14 @@
 FROM debian:bookworm
 
-RUN apt update && apt install -y nginx openssl 
+RUN apt update && apt install -y nginx openssl && \
+    mkdir -p /etc/nginx/ssl && \
+    rm -f /etc/nginx/nginx.conf
 
-RUN mkdir -p /etc/nginx/ssl
-
-RUN openssl req -x509 -nodes -days 300 -newkey rsa:2048 \
-    -keyout /etc/nginx/ssl/nginx.key \
-    -out /etc/nginx/ssl/nginx.crt \
-    -subj "/C=MO/ST=KH/O=42/OU=42/CN=sel-hasn.42.fr"
-
-RUN rm -f /etc/nginx/nginx.conf
-
+COPY ./tools/script.sh /script.sh
 COPY ./tools/nginx.conf /etc/nginx/nginx.conf
+
+RUN chmod +x /script.sh
 
 EXPOSE 443
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/script.sh"]

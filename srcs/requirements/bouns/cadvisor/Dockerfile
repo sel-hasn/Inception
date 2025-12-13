@@ -8,4 +8,4 @@ RUN apt-get update && \
 
 EXPOSE 8080
 
-CMD ["/usr/local/bin/cadvisor", "--logtostderr"]
+CMD ["/usr/local/bin/cadvisor", "--logtostderr", "--port=8080"]

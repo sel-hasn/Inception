@@ -40,13 +40,13 @@ The infrastructure includes:
 ## Resources
 
 ### Docker (Official Docs)
+* [Docker overview](https://docs.docker.com/get-started/overview/)
+* [What is a container?](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/)
+* [Container Images](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/)
 * [Docker Engine](https://docs.docker.com/engine/)
 * [Docker Compose](https://docs.docker.com/compose/)
-* [Docker overview](https://docs.docker.com/get-started/overview/)
 * [Docker Networking](https://docs.docker.com/network/)
 * [Docker Volumes](https://docs.docker.com/storage/volumes/)
-* [Container Images](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/)
-* [What is a container?](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/)
 * [Docker CLI reference](https://docs.docker.com/engine/reference/commandline/cli/)
 
 ### Services & Tools
@@ -68,8 +68,6 @@ Artificial Intelligence tools were used as development assistance for specific, 
 * **Documentation drafting:** AI helped rephrase and structure `README.md`, `USER_DOC.md`, and `DEV_DOC.md` so the documentation matches the 42 subject expectations (notably Chapters VI and VII).
 * **Debugging assistance:** AI helped troubleshoot container connectivity/port publishing and NGINX configuration issues (TLS settings, redirects, and upstream routing).
 * **Script improvement:** AI assisted in reviewing and optimizing initialization scripts (WordPress/MariaDB/FTP) to make startup order, retries, and idempotent setup more reliable.
-* **Research support:** AI was used to quickly locate relevant official documentation pages (networking, volumes, images, CLI) and common pitfalls for Compose-based multi-service setups.
-* **Command/checklist generation:** AI helped propose repeatable test commands (logs, health checks, curl/ftp verification) to validate each service during development.
 
 ## Project Description & Design Choices
 
