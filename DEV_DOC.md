@@ -36,14 +36,39 @@ After adding your user to the `docker` group on Linux, log out and back in (or r
 ### Configuration file: `srcs/.env` (credentials + settings)
 Create `srcs/.env` before starting the project. This file contains secrets and should not be committed.
 
-The repository expects the following variable names (same as `srcs/.env`):
-- **MariaDB**: `MYSQL_DATABASE`, `MYSQL_USERNAME`, `MYSQL_USERPASS`, `MYSQL_ROOT_PASSWORD`
-- **WordPress**:
-  - Site: `DOMAIN_NAME`, `WP_TITLE`
-  - Admin: `WP_ROOTNAME`, `WP_ROOTPASS`, `WP_ROOTEMAIL`
-  - User: `WP_USERNAME`, `WP_USERPASS`, `WP_USEREMAIL`, `WP_USERROLE`
-- **Redis** (bonus): `REDIS_HOST`, `REDIS_PORT`
-- **FTP** (bonus): `FTP_USER`, `FTP_PASS`
+Example `srcs/.env` (copy/paste and edit passwords as you like):
+
+```bash
+# --- MariaDB ---
+MYSQL_DATABASE=inception
+MYSQL_USERNAME=wpuser
+MYSQL_USERPASS=wpuser_pass_42
+MYSQL_ROOT_PASSWORD=root_pass_42
+
+# --- WordPress ---
+# Use the required 42-style hostname format:
+DOMAIN_NAME=$USER.42.fr
+WP_TITLE=Inception
+
+# Admin user
+WP_ROOTNAME=wpmaster
+WP_ROOTPASS=wpmaster_pass_42
+WP_ROOTEMAIL=wpmaster@$USER.42.fr
+
+# Extra user
+WP_USERNAME=wpuser
+WP_USERPASS=wpuser_pass_42
+WP_USEREMAIL=wpuser@$USER.42.fr
+WP_USERROLE=author
+
+# --- Redis (bonus) ---
+REDIS_HOST=redis
+REDIS_PORT=6379
+
+# --- FTP (bonus) ---
+FTP_USER=ftpuser
+FTP_PASS=ftp_pass_42
+```
 
 ### Hostname resolution (`/etc/hosts`)
 For local testing/evaluation on your own machine, you can use your local username (`$USER`) to build the domain.
