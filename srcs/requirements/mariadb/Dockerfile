@@ -1,13 +1,16 @@
 FROM debian:bookworm
 
-COPY ./tools/docker-entrypoint.sh /docker-entrypoint.sh
-
 RUN apt-get update && apt-get install -y mariadb-server && \
-    rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /var/run/mysqld && \
-    chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && \
-    chmod +x /docker-entrypoint.sh
+    rm -rf /var/lib/apt/lists/*
 
-EXPOSE 3306
+# Ensure the runtime directory exists and is owned by mysql
+RUN mkdir -p /var/run/mysqld && \
+    chown -R mysql:mysql /var/run/mysqld && \
+    chmod 777 /var/run/mysqld
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY tools/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

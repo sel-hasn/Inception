@@ -1,6 +1,6 @@
 FROM debian:bookworm
 
-RUN apt update -y && apt upgrade -y && apt install -y redis-server
+RUN apt update -y && apt install -y redis-server && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 6379
 
