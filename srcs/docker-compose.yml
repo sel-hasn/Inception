@@ -39,7 +39,7 @@ services:
     image: nginx:42
 
   redis:
-    build: ./requirements/bouns/redis/
+    build: ./requirements/bonus/redis/
     container_name: redis
     restart: always
     env_file: .env
@@ -50,7 +50,7 @@ services:
     image: redis:42
 
   website:
-    build: ./requirements/bouns/website/
+    build: ./requirements/bonus/website/
     container_name: website
     restart: always
     networks:
@@ -58,7 +58,7 @@ services:
     image: website:42
 
   adminer:
-    build: ./requirements/bouns/adminer/
+    build: ./requirements/bonus/adminer/
     container_name: adminer
     restart: always
     depends_on:
@@ -68,7 +68,7 @@ services:
     image: adminer:42
 
   cadvisor:
-    build: ./requirements/bouns/cadvisor/
+    build: ./requirements/bonus/cadvisor/
     container_name: cadvisor
     restart: always
     networks:
@@ -81,7 +81,7 @@ services:
     image: cadvisor:42
 
   ftp:
-    build: ./requirements/bouns/ftp/
+    build: ./requirements/bonus/ftp/
     container_name: ftp
     restart: always
     env_file: .env

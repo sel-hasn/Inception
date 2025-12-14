@@ -79,7 +79,7 @@ The stack is defined and implemented in the `srcs/` folder:
 * `srcs/docker-compose.yml`: the Compose file wiring all services together.
 * `srcs/requirements/`: Dockerfiles and configuration/scripts for each service.
     * Mandatory: `srcs/requirements/nginx/`, `srcs/requirements/wordpress/`, `srcs/requirements/mariadb/`
-    * Bonus (if enabled in your compose): `srcs/requirements/bouns/` (adminer, redis, ftp, cadvisor, website)
+    * Bonus (if enabled in your compose): `srcs/requirements/bonus/` (adminer, redis, ftp, cadvisor, website)
 
 ### Virtual Machines vs Docker
 - **Virtual Machines (VMs)** emulate a full machine. They typically boot a complete OS (including its own kernel), which increases startup time and resource usage.
