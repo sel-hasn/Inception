@@ -37,7 +37,6 @@ if [ ! -f wp-config.php ]; then
     # Create Extra User
     wp user create "$WP_USERNAME" "$WP_USEREMAIL" \
         --user_pass="$WP_USERPASS" \
-        --role="$WP_USERROLE" \
         --allow-root
 
     # Install Redis Plugin and Configure
