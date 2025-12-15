@@ -56,10 +56,9 @@ WP_ROOTPASS=pass_42
 WP_ROOTEMAIL=wpmaster@$USER.42.fr
 
 # Extra user
-WP_USERNAME=wpuser
-WP_USERPASS=wpuser_pass
+WP_USERNAME=user
+WP_USERPASS=1234
 WP_USEREMAIL=wpuser@$USER.42.fr
-WP_USERROLE=author
 
 # --- Redis (bonus) ---
 REDIS_HOST=redis
