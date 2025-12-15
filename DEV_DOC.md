@@ -42,8 +42,8 @@ Example `srcs/.env` (copy/paste and edit passwords as you like):
 # --- MariaDB ---
 MYSQL_DATABASE=inception
 MYSQL_USERNAME=wpuser
-MYSQL_USERPASS=wpuser_pass_42
-MYSQL_ROOT_PASSWORD=root_pass_42
+MYSQL_USERPASS=wpuserpass
+MYSQL_ROOT_PASSWORD=root_pass
 
 # --- WordPress ---
 # Use the required 42-style hostname format:
@@ -52,12 +52,12 @@ WP_TITLE=Inception
 
 # Admin user
 WP_ROOTNAME=wpmaster
-WP_ROOTPASS=wpmaster_pass_42
+WP_ROOTPASS=pass_42
 WP_ROOTEMAIL=wpmaster@$USER.42.fr
 
 # Extra user
 WP_USERNAME=wpuser
-WP_USERPASS=wpuser_pass_42
+WP_USERPASS=wpuser_pass
 WP_USEREMAIL=wpuser@$USER.42.fr
 WP_USERROLE=author
 
