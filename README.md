@@ -18,8 +18,8 @@ The infrastructure includes:
 ## Instructions
 
 1.  **Prerequisites:**
-    - Docker Engine and Docker Compose installed.
-    - `make` installed.
+    - Docker Engine and Docker Compose installed (documented in `DEV_DOC.md`).
+    - `make` installed (documented in `DEV_DOC.md`).
 
 2.  **Configuration:**
     - Create your `.env` in `srcs/.env` (template and variables are documented in `DEV_DOC.md`).
